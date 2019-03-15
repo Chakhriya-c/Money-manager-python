@@ -106,7 +106,6 @@ def log_in(event):
 				counter += 1
 			remove_all_widgets()
 			create_user_screen()
-			plot_spending_graph()
 
 
 def save_and_log_out(event):
@@ -146,8 +145,6 @@ def perform_deposit(event):
 		balance_var.set("Balance: $"+str(user.balance))
 		user.save_to_file()
 		amount_entry.delete(0, END)
-		plot_spending_graph()
-
 
 def perform_transaction(event):
 	'''Function to add the entry the amount in the amount entry from the user balance and add an entry to the transaction list.'''
@@ -183,7 +180,6 @@ def perform_transaction(event):
 		balance_var.set("Balance: $"+str(user.balance))
 		user.save_to_file()
 		amount_entry.delete(0, END)
-		plot_spending_graph()
 
 
 def remove_all_widgets():
@@ -206,18 +202,6 @@ def read_line_from_user_file():
 		counter += 1
 	user_file.close()
 	return file_info_list
-
-
-def plot_spending_graph():
-	'''Function to plot the user spending here.'''
-	data_set = read_line_from_user_file()[3:]
-	figure = Figure(figsize=(5, 4), dpi=100)
-	canvas = FigureCanvasTkAgg(figure, master=win)
-	canvas.get_tk_widget().grid(row=5, column=0, columnspan=4)
-	plotting = figure.gca()
-	plotting.hist(data_set, bins=int(180/5))
-	plotting.set_xlabel("Spendings")
-	plotting.set_ylabel("items")
 
 
 def create_login_screen():
